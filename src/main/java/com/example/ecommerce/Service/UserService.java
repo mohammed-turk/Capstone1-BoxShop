@@ -15,6 +15,7 @@ public class UserService {
     private final ProductService productService;
     private final MerchantService merchantService;
     private final MerchantStockService merchantStockService;
+    ArrayList<String> buyers = new ArrayList<>();
     ArrayList<User> users = new ArrayList<>();
 
     public ArrayList<User> getUsers(){
@@ -102,6 +103,7 @@ public class UserService {
             return 4;
         users.get(userIndex).setBalance(userBalance - productPrice);
         targetStock.setStock(targetStock.getStock() - 1);
+        buyers.add(userId + "|" + productId + "|" + merchantId);
 
         return 5;
 
@@ -115,6 +117,18 @@ public class UserService {
         boolean validMerchantId = false;
         int userIndex = 0;
         int productIndex =  0;
+        int buyerIndex = -1;
+
+        boolean validBuyer = false;
+        for (int i =0; i< buyers.size(); i++){
+            if (buyers.get(i).equals(userId + "|" + productId + "|" + merchantId)){
+                validBuyer = true;
+                buyerIndex = i;
+            }
+        }
+
+        if (!validBuyer)
+            return -1;
 
         for (User user: users){
             if (user.getId().equals(userId)){
@@ -164,7 +178,7 @@ public class UserService {
 
         users.get(userIndex).setBalance(userBalance + productPrice);
         targetStock.setStock(targetStock.getStock() + 1);
-
+        buyers.remove(buyerIndex);
         return 5;
     }
 

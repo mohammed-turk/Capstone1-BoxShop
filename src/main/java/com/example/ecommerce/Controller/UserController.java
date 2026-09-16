@@ -85,6 +85,7 @@ public class UserController {
             case 2 -> ResponseEntity.status(400).body(new APIResponse("merchant not found"));
             case 1 -> ResponseEntity.status(400).body(new APIResponse("product not found"));
             case 0 -> ResponseEntity.status(400).body(new APIResponse("user not found"));
+            case -1 -> ResponseEntity.status(400).body(new APIResponse("user did not buy such a thing"));
             default -> ResponseEntity.status(500).body(new APIResponse("unexpected error"));
         };
     }

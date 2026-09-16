@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class MerchantService {
     ArrayList<Merchant> Merchants = new ArrayList<>();
 
+
     public ArrayList<Merchant> getMerchants(){
         return Merchants;
     }
